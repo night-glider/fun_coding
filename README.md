@@ -2,6 +2,8 @@
 
 fun_coding is a simple plugin to have some fun while coding.
 
+Original idea(and some code) came from [Jotson's ridiculous_coding](https://github.com/jotson/ridiculous_coding)
+
 ![](https://raw.githubusercontent.com/night-glider/fun_coding/main/screenshots/showcase.gif)
 
 ## Features
