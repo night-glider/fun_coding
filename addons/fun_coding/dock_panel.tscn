@@ -1,0 +1,107 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/fun_coding/dock_panel.gd" type="Script" id=1]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0, 0.5, 1 )
+colors = PoolColorArray( 1, 0, 0, 1, 0.992188, 1, 0, 1, 0, 1, 0.203125, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+width = 128
+
+[node name="FUN" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 0, 100 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="XP_container" type="Control" parent="VBoxContainer"]
+margin_right = 1024.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+
+[node name="XP" type="Label" parent="VBoxContainer/XP_container"]
+text = "XP"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="XP_count" type="Label" parent="VBoxContainer/XP_container"]
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+text = "0/100"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="level" type="Label" parent="VBoxContainer/XP_container"]
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+text = "LEVEL 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="VBoxContainer"]
+margin_top = 28.0
+margin_right = 1024.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 0, 12 )
+value = 100.0
+texture_progress = SubResource( 2 )
+nine_patch_stretch = true
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_top = 50.0
+columns = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="type" type="CheckButton" parent="GridContainer"]
+margin_right = 166.0
+margin_bottom = 40.0
+text = "type effect"
+
+[node name="delete" type="CheckButton" parent="GridContainer"]
+margin_left = 170.0
+margin_right = 331.0
+margin_bottom = 40.0
+text = "delete effect"
+
+[node name="lvl_up" type="CheckButton" parent="GridContainer"]
+margin_left = 335.0
+margin_right = 490.0
+margin_bottom = 40.0
+text = "lvl up effect"
+
+[node name="perfect_line" type="CheckButton" parent="GridContainer"]
+margin_left = 494.0
+margin_right = 649.0
+margin_bottom = 40.0
+text = "perfect_line"
+
+[node name="pet" type="CheckButton" parent="GridContainer"]
+margin_top = 44.0
+margin_right = 166.0
+margin_bottom = 84.0
+text = "awesome pet"
+
+[connection signal="pressed" from="GridContainer/type" to="." method="update_settings"]
+[connection signal="pressed" from="GridContainer/delete" to="." method="update_settings"]
+[connection signal="pressed" from="GridContainer/lvl_up" to="." method="update_settings"]
+[connection signal="pressed" from="GridContainer/perfect_line" to="." method="update_settings"]
+[connection signal="pressed" from="GridContainer/pet" to="." method="_on_pet_pressed"]
