@@ -12,6 +12,12 @@ var instruction = 0
 #1 - heading to point
 #2 - panic
 
+func set_texture_flags_to_none():
+	var frameCount = $AnimatedSprite.frames.get_frame_count("default")
+	for i in frameCount:
+		var frame = $AnimatedSprite.frames.get_frame("default", i)
+		frame.flags = 0
+
 func instruction_0_init():
 	instruction = 0
 
@@ -24,6 +30,7 @@ func instruction_2_init():
 	instruction = 2
 
 func _ready():
+	set_texture_flags_to_none()
 	instruction_0_init()
 
 func _process(delta):
