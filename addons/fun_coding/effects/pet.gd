@@ -51,7 +51,7 @@ func _input(event):
 					$CancelPanicTimer.start()
 		elif event.button_index == 1 and not event.pressed:
 			# Allow the pet to move if we are not in panic mode
-			if not current_instruction == Instruction.PANIC:
+			if current_instruction == Instruction.STOP:
 				current_instruction = Instruction.IDLE
 
 func set_sprite_size():
