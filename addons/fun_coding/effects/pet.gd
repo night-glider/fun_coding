@@ -18,10 +18,19 @@ enum Instruction {
 }
 
 var current_instruction = Instruction.IDLE
+var running_in_scene_editor = false
 
 func _ready():
-	set_texture_flags_to_none()
-	set_sprite_size()
+	# If we are modifying this script then don't process this script inside the scene editor
+	running_in_scene_editor = get_parent() is Viewport
+	
+	if not running_in_scene_editor:
+		$AnimatedSprite.playing = true
+		
+		set_texture_flags_to_none()
+		set_sprite_size()
+	else:
+		set_process(false)
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -36,6 +45,10 @@ func _input(event):
 					click_amount = 0
 					current_instruction = Instruction.PANIC
 					$PanicTimer.start()
+				else:
+					# Starts the cancel panic timer
+					# If the timer is running, then it will restart it
+					$CancelPanicTimer.start()
 		elif event.button_index == 1 and not event.pressed:
 			# Allow the pet to move if we are not in panic mode
 			if not current_instruction == Instruction.PANIC:
@@ -43,7 +56,7 @@ func _input(event):
 
 func set_sprite_size():
 	var frame = $AnimatedSprite.frames.get_frame("default", 0)
-	print(frame.get_size())
+	rect_size = frame.get_size()
 	sprite_size = frame.get_size() * rect_scale
 
 func set_texture_flags_to_none():
@@ -74,7 +87,7 @@ func _process(delta):
 		rect_position = rect_position.move_toward(target, panic_speed * delta)
 	
 	if mouse_on_pet and Input.is_mouse_button_pressed(BUTTON_LEFT):
-		rect_position = get_global_mouse_position() - (rect_size / 2) * rect_scale
+		rect_position = get_global_mouse_position() - (sprite_size / 2)
 		
 		# Clamp the position so it doesn't go off screen
 		rect_position.x = clamp(rect_position.x, 0, get_viewport_rect().size.x - sprite_size.x)
