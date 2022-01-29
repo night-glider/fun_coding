@@ -56,6 +56,7 @@ func _input(event):
 
 func set_sprite_size():
 	var frame = $AnimatedSprite.frames.get_frame("default", 0)
+	rect_size = frame.get_size()
 	sprite_size = frame.get_size() * rect_scale
 
 func set_texture_flags_to_none():
@@ -86,7 +87,7 @@ func _process(delta):
 		rect_position = rect_position.move_toward(target, panic_speed * delta)
 	
 	if mouse_on_pet and Input.is_mouse_button_pressed(BUTTON_LEFT):
-		rect_position = get_global_mouse_position() - (rect_size / 2) * rect_scale
+		rect_position = get_global_mouse_position() - (sprite_size / 2)
 		
 		# Clamp the position so it doesn't go off screen
 		rect_position.x = clamp(rect_position.x, 0, get_viewport_rect().size.x - sprite_size.x)
