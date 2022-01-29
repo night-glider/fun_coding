@@ -39,11 +39,11 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[node name="Control" type="Control"]
-margin_left = 307.509
-margin_top = 406.688
-margin_right = 323.51
-margin_bottom = 420.689
+[node name="Pet" type="Control"]
+margin_left = 498.564
+margin_top = 429.802
+margin_right = 514.584
+margin_bottom = 443.81
 rect_scale = Vector2( 5, 5 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -52,9 +52,18 @@ __meta__ = {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 8 )
-frame = 1
+frame = 5
 playing = true
 centered = false
 
-[connection signal="mouse_entered" from="." to="." method="_on_Control_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_Control_mouse_exited"]
+[node name="PanicTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CancelPanicTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="mouse_entered" from="." to="." method="_on_Pet_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_Pet_mouse_exited"]
+[connection signal="timeout" from="PanicTimer" to="." method="_on_PanicTimer_timeout"]
+[connection signal="timeout" from="CancelPanicTimer" to="." method="_on_CancelPanicTimer_timeout"]
