@@ -18,10 +18,19 @@ enum Instruction {
 }
 
 var current_instruction = Instruction.IDLE
+var running_in_scene_editor = false
 
 func _ready():
-	set_texture_flags_to_none()
-	set_sprite_size()
+	# If we are modifying this script then don't process the script inside the scene editor
+	running_in_scene_editor = get_parent() is Viewport
+	
+	if not running_in_scene_editor:
+		$AnimatedSprite.playing = true
+		
+		set_texture_flags_to_none()
+		set_sprite_size()
+	else:
+		set_process(false)
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -36,6 +45,9 @@ func _input(event):
 					click_amount = 0
 					current_instruction = Instruction.PANIC
 					$PanicTimer.start()
+				else:
+					# Starts the cancel panic timer, if its going then it will restart it
+					$CancelPanicTimer.start()
 		elif event.button_index == 1 and not event.pressed:
 			# Allow the pet to move if we are not in panic mode
 			if not current_instruction == Instruction.PANIC:

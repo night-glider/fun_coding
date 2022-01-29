@@ -40,10 +40,10 @@ animations = [ {
 } ]
 
 [node name="Pet" type="Control"]
-margin_left = 498.564
-margin_top = 429.802
-margin_right = 514.584
-margin_bottom = 443.81
+margin_left = 0
+margin_top = 0
+margin_right = 0
+margin_bottom = 0
 rect_scale = Vector2( 5, 5 )
 script = ExtResource( 1 )
 __meta__ = {
@@ -52,7 +52,7 @@ __meta__ = {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 8 )
-frame = 5
+frame = 0
 playing = true
 centered = false
 
