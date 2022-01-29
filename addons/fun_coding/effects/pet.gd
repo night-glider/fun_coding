@@ -21,7 +21,7 @@ var current_instruction = Instruction.IDLE
 var running_in_scene_editor = false
 
 func _ready():
-	# If we are modifying this script then don't process the script inside the scene editor
+	# If we are modifying this script then don't process this script inside the scene editor
 	running_in_scene_editor = get_parent() is Viewport
 	
 	if not running_in_scene_editor:
@@ -46,7 +46,8 @@ func _input(event):
 					current_instruction = Instruction.PANIC
 					$PanicTimer.start()
 				else:
-					# Starts the cancel panic timer, if its going then it will restart it
+					# Starts the cancel panic timer
+					# If the timer is running, then it will restart it
 					$CancelPanicTimer.start()
 		elif event.button_index == 1 and not event.pressed:
 			# Allow the pet to move if we are not in panic mode
@@ -55,7 +56,6 @@ func _input(event):
 
 func set_sprite_size():
 	var frame = $AnimatedSprite.frames.get_frame("default", 0)
-	print(frame.get_size())
 	sprite_size = frame.get_size() * rect_scale
 
 func set_texture_flags_to_none():
